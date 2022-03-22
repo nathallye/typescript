@@ -57,7 +57,6 @@ const felino: IFelino = {
   tipo: 'terrestre',
   visaoNoturna: true,
 }
-
 ```
 
 ## Types
@@ -140,7 +139,7 @@ function redirecione(usuario: IUsuario | IAdmin) {
 }
 ```
 
- ## Caracter "?" para variáveis opcionais 
+## Caracter "?" para variáveis opcionais 
 Usando o caracter "?" após o nome da variável faz com que ela seja um dado opcional.
 
  ``` JavaScript
@@ -157,5 +156,60 @@ function redirecione(usuario: IUsuario) {
 
   // redirecinar para a área do usuário
 }
+```
 
+## Criando variáveis com propriedade readonly(somente leitura)
+Usamos a propriedade readonly, para que não seja possível a alteração dos valores dos atributos de uma interface.
+
+``` JavaScript
+interface Cachorro {
+  nome: string;
+  idade: number;
+  parqueFavorito?: string; // valor de parqueFavorito que pode ou não está definido, variável opcional.
+}
+
+type CachorroSomenteLeitura = {
+  +readonly [K in keyof Cachorro]-?: Cachorro[K]; // interando todos os itens e informando que esses valores vão ser somente de leitura
+  // + adicionando o readony e - removendo os elementos opcionais dentro dessa classe
+}
+
+class MeuCachorro implements CachorroSomenteLeitura {
+  idade;
+  nome;
+  parqueFavorito;
+
+  constructor(nome, idade) {
+    this.nome = nome;
+    this.idade = idade;
+  }
+}
+
+const cao = new MeuCachorro('Apolo', 12);
+```
+
+## Importando bibliotecas com typescript
+
+### Como estender uma biblioteca sem mexer nos types já definidos dentro dela?
+O typescript tem um padrão para isso.
+
+1° Criar um arquivo typings.d.ts
+Nesse vai ser definido os types gerais da aplicação. O que adicionarmos aqui, se tiver o mesmo nome dos types definidos da biblioteca externa que estamos utilizando, ele simplesmente vai juntar todas as informações.
+
+## Omit
+Para "excluir" um atributo na classe que "herda" uma determina interface.
+
+``` TypeScript
+interface Pessoa {
+  nome: string;
+  idade: number;
+  nacionalidade: string;
+}
+
+interface Brasileiro extends Omit<Pessoa, 'nacionalidade'> { // nesse caso a interface Brasileiro, recebe todos os atributos de Pessoa, exeto 'nacionalidade'
+}
+
+const brasileiro: Brasileiro = {
+  nome: 'Gabriel',
+  idade: 22
+}
 ```

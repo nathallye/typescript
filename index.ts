@@ -62,21 +62,92 @@
 
 // adicionaApendiceALista([1, 2, 3, 4], 6);
 
+
 // CONDICIONAIS A PARTIR DE PARÂMETROS 
+// interface IUsuario {
+//   id: string;
+//   email: string;
+// }
 
-interface IUsuario {
-  id: string;
-  email: string;
+// interface IAdmin extends IUsuario {
+//   cargo: 'gerente' | 'coordenador' | 'supervisor'
+// }
+
+// function redirecione(usuario: IUsuario | IAdmin) {
+//   if ('cargo' in usuario) {
+//     // redirecionar para a área de admin
+//   }
+
+//   // redirecinar para a área do usuário
+// }
+
+
+// CARACTER "?" PARA VARIÁVEIS OPCIONAIS
+// interface IUsuario {
+//   id: string;
+//   email: string;
+//   cargo?: 'gerente' | 'coordenador' | 'supervisor' // valor que pode ou não está definido em IUsuário. Se estiver definifo, é um usuário admin
+// }
+
+// function redirecione(usuario: IUsuario) {
+//   if (usuario.cargo) { // se usuário tiver o atributo cargo
+//     // redirecionar para a área de admin
+//   }
+
+//   // redirecinar para a área do usuário
+// }
+
+
+// CRIANDO VARIÁVEIS COM PROPRIEDADE READONLY(SOMENTE LEITURA) & PRIVATE
+// interface Cachorro {
+//   nome: string;
+//   idade: number;
+//   parqueFavorito?: string; // valor de parqueFavorito que pode ou não está definido, variável opcional.
+// }
+
+// type CachorroSomenteLeitura = {
+//   +readonly [K in keyof Cachorro]-?: Cachorro[K]; // interando todos os itens e informando que esses valores vão ser somente de leitura
+//   // + adicionando o readony e - removendo os elementos opcionais dentro dessa classe
+// }
+
+// class MeuCachorro implements CachorroSomenteLeitura {
+//   idade;
+//   nome;
+//   parqueFavorito;
+
+//   constructor(nome, idade) {
+//     this.nome = nome;
+//     this.idade = idade;
+//   }
+// }
+
+// const cao = new MeuCachorro('Apolo', 12);
+
+
+// IMPORTANDO BIBLIOTECAS COM TYPESCRIPT
+// import $ from 'jquery';
+
+// $.fn.extend({
+//   novaFuncao() { // vamos extender a biblioteca
+//     console.log('Chamou a nova função.');
+//   }
+// });
+
+// $('body').novaFuncao();
+
+
+// OMIT
+interface Pessoa {
+  nome: string;
+  idade: number;
+  nacionalidade: string;
 }
 
-interface IAdmin extends IUsuario {
-  cargo: 'gerente' | 'coordenador' | 'supervisor'
+interface Brasileiro extends Omit<Pessoa, 'nacionalidade'> { // nesse caso a interface Brasileiro, recebe todos os atributos de Pessoa, exeto 'nacionalidade'
+
 }
 
-function redirecione(usuario: IUsuario | IAdmin) {
-  if ('cargo' in usuario) {
-    // redirecionar para a área de admin
-  }
-
-  // redirecinar para a área do usuário
+const brasileiro: Brasileiro = {
+  nome: 'Gabriel',
+  idade: 22
 }
