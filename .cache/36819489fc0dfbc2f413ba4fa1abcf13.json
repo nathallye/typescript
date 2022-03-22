@@ -1,0 +1,1 @@
+{"dependencies":[],"generated":{"js":"// function soma(a: number, b: number) {\n//   return a + b;\n// }\nfunction redirecione(usuario) {\n    if ('cargo' in usuario) {\n        // redirecionar para a área de admin\n    }\n    // redirecinar para a área do usuário\n}\n"},"hash":"04b30295ea7131f7f62753c1fad9cbb7"}
