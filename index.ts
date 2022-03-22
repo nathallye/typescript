@@ -79,5 +79,4 @@ function redirecione(usuario: IUsuario | IAdmin) {
   }
 
   // redirecinar para a área do usuário
-
 }
